@@ -27,3 +27,14 @@ docker exec -it pg psql -U app -d appdb -c "INSERT INTO customers(name, gender) 
 
 # 4) consume events (filter DemoUser)
 docker exec -it kafka bash -lc "kafka-console-consumer --bootstrap-server kafka:29092 --topic app.public.customers --from-beginning --max-messages 200 | grep DemoUser"
+
+
+### Live proof (example)
+Example live CDC events (snapshot=false, op=c) observed on `app.public.customers`:
+- DemoUserLIVE (id=7)
+- DemoUserLIVE2 (id=8)
+
+Command used:
+```powershell
+docker exec -i kafka bash -lc "kafka-console-consumer --bootstrap-server kafka:29092 --topic app.public.customers --from-beginning --max-messages 800" |
+  Select-String -Pattern "DemoUserLIVE"

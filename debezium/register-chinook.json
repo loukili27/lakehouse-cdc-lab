@@ -1,0 +1,22 @@
+{
+  "name": "chinook-cdc",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "database.hostname": "pg",
+    "database.port": "5432",
+    "database.user": "app",
+    "database.password": "app",
+    "database.dbname": "chinook",
+
+    "topic.prefix": "chinook",
+    "schema.include.list": "public",
+    "table.include.list": "public.customer,public.invoice,public.invoice_line,public.track",
+
+    "plugin.name": "pgoutput",
+    "slot.name": "chinook_slot",
+    "publication.autocreate.mode": "filtered",
+
+    "tombstones.on.delete": "false",
+    "snapshot.mode": "initial"
+  }
+}
